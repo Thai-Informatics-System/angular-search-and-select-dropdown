@@ -1,0 +1,39 @@
+{
+  "name": "@servicemind.tis/angular-search-and-select-dropdown",
+  "version": "1.0.0",
+  "description": "Angular Material dropdown with built-in search for client-side and server-side data, supporting single and multiple selection, reactive forms, and create-new actions.",
+  "keywords": [
+    "angular",
+    "angular-material",
+    "dropdown",
+    "select",
+    "multi-select",
+    "search-select",
+    "autocomplete",
+    "server-side-search",
+    "reactive-forms"
+  ],
+  "author": "Thai Informatics System",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thai-Informatics-System/angular-search-and-select-dropdown.git"
+  },
+  "homepage": "https://github.com/Thai-Informatics-System/angular-search-and-select-dropdown#readme",
+  "bugs": {
+    "url": "https://github.com/Thai-Informatics-System/angular-search-and-select-dropdown/issues"
+  },
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "@angular/material": "^19.2.8",
+    "@angular/cdk": "^19.2.8"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "access": "public"
+  }
+}
