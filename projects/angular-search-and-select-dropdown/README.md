@@ -169,18 +169,54 @@ Both client- and server-side components accept configuration inputs defined in t
 
 ## 🔌 Inputs & Outputs
 
-### Shared Inputs
-- `type`: `'single' | 'multiple'`
-- `label`: `string`
-- `nameKey`: `string`
-- `valueKey`: `string`
-- `data`: `any[]` (optional for server-side)
-- `config`: `ClientSide/ServerSide[Single|Multiple]SelectionConfig`
-- `formControlName`: `string`
-- `classes`: `string` (CSS classes)
+Both `<angular-client-side-dropdown>` and `<angular-server-side-dropdown>` take the same inputs unless noted.
 
-### Output Events
-- `(selectedValueNamesUpdated)`: Emits selected values or array depending on mode
+### Required inputs
+
+These are declared `@Input({ required: true })` — Angular will error at compile time if you omit them.
+
+| Input | Type | Description |
+|---|---|---|
+| `type` | `'single' \| 'multiple'` | Selection mode |
+| `label` | `string` | Field label |
+| `nameKey` | `string` | Property on each item used as the display text |
+| `valueKey` | `string` | Property on each item used as the value |
+| `config` | `ClientSide*` / `ServerSide*SelectionConfig` | Behaviour config — see below |
+
+### Optional inputs
+
+| Input | Type | Default | Description |
+|---|---|---|---|
+| `formControlName` | `string` | — | Reactive-forms control name |
+| `data` | `any[]` | `[]` | Items to show. Required in practice for client-side; server-side fetches its own |
+| `placeholder` | `string` | — | Placeholder text |
+| `allOptionsLabel` | `string` | `'All'` | Label for the "All" entry when `config.isAllOption` is set |
+| `isLabelOutside` | `boolean` | `false` | Render the label above the field instead of floating |
+| `isDisplayPlaceholder` | `boolean` | `true` client-side, `false` server-side | Show the placeholder |
+| `disabled` | `boolean` | `false` | Disable the control |
+| `isRequired` | `boolean` | `false` | Show the required indicator |
+| `payload` | `object` | `{}` | Extra body sent with server-side requests |
+| `isRequiredPayload` | `boolean` | `false` | Only fetch once `payload` is non-empty |
+| `appearance` | `MatFormFieldAppearance` | `'outline'` | Material form-field appearance |
+| `classes` | `string` | `''` | Extra classes on the form field |
+| `panelClass` | `string` | `''` | Extra classes on the dropdown overlay panel |
+| `customId` | `string` | random | DOM id, useful for testing |
+| `validationMessages` | `ValidationMessages[]` | `[]` | Error messages keyed by validator type |
+| `prefix` / `suffix` | `string` | `''` | Material icon names rendered inside the field |
+| `loading` | `boolean` | `false` | Show the loading state |
+| `isRefreshing` | `boolean` | `false` | Show the refreshing state |
+| `refetch` | `boolean` | `false` | **Server-side only** — set `true` to trigger a refetch |
+
+### Outputs
+
+| Output | Emits | Description |
+|---|---|---|
+| `selectedValueNamesUpdated` | `SelectedFilterDisplayValuesType` | Display values for the current selection, for filter-chip UIs |
+| `dataChange` | `any` | Fires when the loaded option list changes |
+| `loadingChange` | `boolean` | Fires as loading starts and finishes — use with `[(loading)]` |
+| `refetchChange` | `boolean` | **Server-side only** — resets `refetch` after a fetch, use with `[(refetch)]` |
+
+`loading` / `refetch` are two-way bindable via their matching `*Change` outputs.
 
 ---
 
@@ -232,20 +268,41 @@ this.config = {
 - `ServerSideSingleSelectionConfig`
 - `ServerSideMultipleSelectionConfig`
 - `SelectedFilterDisplayValueType`
+- `SelectedFilterDisplayValuesType`
 - `SelectedFiltersGroupedValuesType`
 - `ValidationMessages`
+- `AnyKeyValueObject`
 
 ---
 
 ## 🎨 Styling
 
-The library uses Angular Material components. Ensure you’ve included a Material theme:
+The library renders Angular Material components, so your application must apply a Material theme — without one the dropdown renders unstyled.
 
-```scss
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+If you don't already have a theme, the quickest option is a prebuilt one in `angular.json`:
+
+```json
+"styles": [
+  "@angular/material/prebuilt-themes/azure-blue.css",
+  "src/styles.scss"
+]
 ```
 
-Custom styles can be added using the `classes` input.
+Or define your own in `styles.scss`:
+
+```scss
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme((
+    color: mat.$azure-palette,
+    typography: Roboto,
+    density: 0,
+  ));
+}
+```
+
+Per-instance styling goes through the `classes` input (on the form field) and `panelClass` (on the dropdown overlay).
 
 ---
 

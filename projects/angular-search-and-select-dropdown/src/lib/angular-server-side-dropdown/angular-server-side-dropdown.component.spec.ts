@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { AngularServerSideDropdownComponent } from './angular-server-side-dropdown.component';
+import { AngularSearchAndSelectDropdownModule } from '../angular-search-and-select-dropdown.module';
 
 describe('AngularServerSideDropdownComponent', () => {
   let component: AngularServerSideDropdownComponent;
@@ -8,7 +11,10 @@ describe('AngularServerSideDropdownComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AngularServerSideDropdownComponent]
+      // Import the library module rather than declaring the component alone, so
+      // its child components and Material dependencies resolve.
+      imports: [AngularSearchAndSelectDropdownModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
 

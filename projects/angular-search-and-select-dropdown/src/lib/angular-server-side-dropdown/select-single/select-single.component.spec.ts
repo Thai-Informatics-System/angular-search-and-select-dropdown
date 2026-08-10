@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { SelectSingleComponent } from './select-single.component';
+import { AngularSearchAndSelectDropdownModule } from '../../angular-search-and-select-dropdown.module';
 
 describe('SelectSingleComponent', () => {
   let component: SelectSingleComponent;
@@ -8,10 +11,13 @@ describe('SelectSingleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SelectSingleComponent]
+      // Import the library module rather than declaring the component alone, so
+      // its child components and Material dependencies resolve.
+      imports: [AngularSearchAndSelectDropdownModule],
+      providers: [provideHttpClient(), provideHttpClientTesting()]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(SelectSingleComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
