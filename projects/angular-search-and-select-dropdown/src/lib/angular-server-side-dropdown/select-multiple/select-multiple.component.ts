@@ -497,6 +497,15 @@ export class SelectMultipleComponent {
                                 d.isHidden = !matches;
                                 return d;
                             });
+
+                            // dropdown order follows this API response; this.data stays a merge cache
+                            if (tempData?.length) {
+                                data.sort((a, b) => {
+                                    const ai = tempData.findIndex(d => d[this.valueKey] == a[this.valueKey]);
+                                    const bi = tempData.findIndex(d => d[this.valueKey] == b[this.valueKey]);
+                                    return (ai === -1 ? Number.MAX_SAFE_INTEGER : ai) - (bi === -1 ? Number.MAX_SAFE_INTEGER : bi);
+                                });
+                            }
                         }
 
                         this.options.next(data.slice());
