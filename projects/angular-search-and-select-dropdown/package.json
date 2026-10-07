@@ -1,6 +1,6 @@
 {
   "name": "@servicemind.tis/angular-search-and-select-dropdown",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Angular Material dropdown with built-in search for client-side and server-side data, supporting single and multiple selection, reactive forms, and create-new actions.",
   "keywords": [
     "angular",
