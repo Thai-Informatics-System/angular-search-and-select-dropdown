@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Inject, Input, Output, SimpleChanges, VERSION, ViewChild, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, inject, EventEmitter, Inject, Input, Output, SimpleChanges, VERSION, ViewChild, forwardRef } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import { ReplaySubject, Subject, takeUntil, take, finalize, Observable, debounceTime, Subscription } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatSelect } from '@angular/material/select';
 import type { MatFormFieldAppearance } from '@angular/material/form-field';
 import type { ServerSideMultipleSelectionConfig, ValidationMessages } from '../../interfaces';
+import { syncTouchedState } from '../../utils/sync-touched-state';
 
 @Component({
     selector: 'angular-select-multiple',
@@ -88,6 +89,8 @@ export class SelectMultipleComponent {
 
     /** Subject that emits when the component has been destroyed. */
     private _onDestroy = new Subject<void>();
+
+    private injector = inject(Injector);
 
     onChange: Function = (_: any) => { };
     onTouched: Function = (_: any) => { };
@@ -199,6 +202,10 @@ export class SelectMultipleComponent {
     }
 
     ngAfterViewInit() {
+    }
+
+    ngAfterContentInit() {
+      syncTouchedState(this.injector, this.listCtrl, this.changeDetectorRef, this._onDestroy);
     }
 
     ngOnDestroy() {

@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, forwardRef, Input, Output, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, inject, EventEmitter, forwardRef, Input, Output, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, FormControl } from '@angular/forms';
 import type { MatFormFieldAppearance } from '@angular/material/form-field';
 import { Subject, takeUntil } from 'rxjs';
 import type { SelectedFilterDisplayValuesType, ServerSideSingleSelectionConfig, ValidationMessages } from '../interfaces';
+import { syncTouchedState } from '../utils/sync-touched-state';
 
 const generateRandomString = (length: number): string => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -74,6 +75,8 @@ export class AngularServerSideDropdownComponent {
   /** Subject that emits when the component has been destroyed. */
   private _onDestroy = new Subject<void>();
 
+  private injector = inject(Injector);
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef
   ) { }
@@ -141,6 +144,10 @@ export class AngularServerSideDropdownComponent {
       }
     }
 
+  }
+
+  ngAfterContentInit() {
+    syncTouchedState(this.injector, this.fc, this.changeDetectorRef, this._onDestroy);
   }
 
   ngOnDestroy() {

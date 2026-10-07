@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, VERSION, ViewChild, forwardRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, inject, EventEmitter, Input, Output, SimpleChanges, VERSION, ViewChild, forwardRef } from '@angular/core';
 import { FormControl, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 import type { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSelect } from '@angular/material/select';
 import { ReplaySubject, Subject, takeUntil, Observable, finalize, Subscription, debounceTime } from 'rxjs';
 import type { ServerSideSingleSelectionConfig, ValidationMessages } from '../../interfaces';
+import { syncTouchedState } from '../../utils/sync-touched-state';
 
 @Component({
   selector: 'angular-select-single',
@@ -81,6 +82,8 @@ export class SelectSingleComponent {
 
   /** Subject that emits when the component has been destroyed. */
   private _onDestroy = new Subject<void>();
+
+  private injector = inject(Injector);
 
   onChange: Function = (_: any) => { };
   onTouched: Function = (_: any) => { };
@@ -179,6 +182,10 @@ export class SelectSingleComponent {
   }
 
   ngAfterViewInit() {
+  }
+
+  ngAfterContentInit() {
+    syncTouchedState(this.injector, this.listCtrl, this.changeDetectorRef, this._onDestroy);
   }
 
   ngOnDestroy() {
