@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { AngularServerSideDropdownComponent } from './angular-server-side-dropdown.component';
@@ -14,7 +14,7 @@ describe('AngularServerSideDropdownComponent', () => {
       // Import the library module rather than declaring the component alone, so
       // its child components and Material dependencies resolve.
       imports: [AngularSearchAndSelectDropdownModule],
-      providers: [provideHttpClient(), provideHttpClientTesting()]
+      providers: [provideHttpClient(withXhr()), provideHttpClientTesting()]
     })
     .compileComponents();
 
