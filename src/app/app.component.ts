@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { ClientSideMultipleSelectionConfig, ClientSideSingleSelectionConfig, SelectedFilterDisplayValuesType, SelectedFilterDisplayValueType, ServerSideMultipleSelectionConfig, ServerSideSingleSelectionConfig, AngularSearchAndSelectDropdownModule } from 'angular-search-and-select-dropdown';
 
@@ -7,6 +7,7 @@ import { ClientSideMultipleSelectionConfig, ClientSideSingleSelectionConfig, Sel
   selector: 'app-root',
   imports: [CommonModule, ReactiveFormsModule, AngularSearchAndSelectDropdownModule],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {

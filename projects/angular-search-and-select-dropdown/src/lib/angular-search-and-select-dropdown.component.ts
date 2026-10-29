@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'angular-search-and-select-dropdown',
@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
       angular-search-and-select-dropdown works!
     </p>
   `,
+  changeDetection: ChangeDetectionStrategy.Eager,
   styles: ``
 })
 export class AngularSearchAndSelectDropdownComponent {

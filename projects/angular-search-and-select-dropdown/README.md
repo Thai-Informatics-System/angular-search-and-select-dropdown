@@ -20,6 +20,17 @@ A powerful Angular Material-based dropdown component library by **Thai Informati
 
 ---
 
+## Compatibility
+
+| Library | Angular, Material, CDK |
+|---|---|
+| 2.x | 22.x |
+| 1.x | 19.x |
+
+**2.0.0** — built with Angular 22 (partial compilation), so it needs Angular 22 and does not work on older versions; stay on 1.x for Angular 19. `@angular/forms` and `@angular/router` are now declared peers (both were imported already). Panel, divider and placeholder colours fall back to Material 3 system tokens (`--mat-sys-*`), so the dropdown follows an M3 app theme.
+
+---
+
 ## 📦 Installation
 
 ```bash
@@ -29,7 +40,7 @@ npm install @servicemind.tis/angular-search-and-select-dropdown
 ### Required Peer Dependencies
 
 ```bash
-npm install @angular/material @angular/cdk
+npm install @angular/material@^22 @angular/cdk@^22
 ```
 
 ---
@@ -303,6 +314,17 @@ html {
 ```
 
 Per-instance styling goes through the `classes` input (on the form field) and `panelClass` (on the dropdown overlay).
+
+Optional CSS variables (set on `:root` or `body`; each falls back to the Material 3 token, then the default):
+
+| Variable | Material 3 fallback | Default | Used for |
+|---|---|---|---|
+| `--angular-dropdown-panel-bg-color` | `--mat-sys-surface-container` | `#ffffff` | Dropdown panel and search bar background |
+| `--angular-option-selected-state-layer-color` | `--mat-sys-secondary-container` | — | Selected option background (server-side single select) |
+| `--angular-divider` | `--mat-sys-outline-variant` | `#cccccc` | Line under the search input |
+| `--angular-dropdown-search-placeholder-color` | `--mat-sys-on-surface-variant` | `#888` | Search placeholder text |
+| `--angular-dropdown-scrollbar-thumb-color` | `--mat-sys-outline` | `black` | Panel scrollbar thumb |
+| `--angular-dropdown-loader-color` | `--mat-sys-on-surface-variant` | `gray` | Loading spinner |
 
 ---
 

@@ -1,6 +1,6 @@
 {
   "name": "@servicemind.tis/angular-search-and-select-dropdown",
-  "version": "1.0.5",
+  "version": "2.0.0",
   "description": "Angular Material dropdown with built-in search for client-side and server-side data, supporting single and multiple selection, reactive forms, and create-new actions.",
   "keywords": [
     "angular",
@@ -24,10 +24,12 @@
     "url": "https://github.com/Thai-Informatics-System/angular-search-and-select-dropdown/issues"
   },
   "peerDependencies": {
-    "@angular/common": "^19.2.0",
-    "@angular/core": "^19.2.0",
-    "@angular/material": "^19.2.8",
-    "@angular/cdk": "^19.2.8"
+    "@angular/common": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/material": "^22.0.0",
+    "@angular/cdk": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/router": "^22.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

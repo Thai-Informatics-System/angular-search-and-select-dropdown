@@ -6,8 +6,8 @@
   position: sticky;
   top: -10px;
   width: 100%;
-  border-bottom: 1px solid #cccccc;
-  background: var(--angular-dropdown-panel-bg-color, white);
+  border-bottom: 1px solid var(--angular-divider, var(--mat-sys-outline-variant, #cccccc));
+  background: var(--angular-dropdown-panel-bg-color, var(--mat-sys-surface-container, white));
   z-index: 100;
 }
 
@@ -22,7 +22,7 @@
 }
 
 ::ng-deep .mat-select-search-panel mat-select-search .mat-select-search-inner input::placeholder {
-  color: #888; /* Ensure it's visible */
+  color: var(--angular-dropdown-search-placeholder-color, var(--mat-sys-on-surface-variant, #888)); /* Ensure it's visible */
   opacity: 1;   /* Ensure it's not fully transparent */
   display: unset !important;
 }
